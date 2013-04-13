@@ -10,8 +10,7 @@ public class CheckInRequest implements IRequest {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
