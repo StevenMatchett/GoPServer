@@ -15,7 +15,16 @@ public class CommandFactory {
 
 		if (commandArray == null) {
 			commandArray = new IRequest[] { 
-					new GetGamesRequest() };
+					new BuyVPRequest(), 
+					new CheckInRequest(), 
+					new CreateGameRequest(),
+					new GetGameListRequest(),
+					new GetGameRequest(),
+					new GetGamesRequest(),
+					new GetPlayerListRequest(),
+					new JoinGameRequest(),
+					new ResignRequest(),
+					new UpgradeBuildingRequest()};
 		}
 		return commandArray;
 
