@@ -11,7 +11,6 @@ public class BuyVPRequest implements IRequest {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-
 	}
 
 }
