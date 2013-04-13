@@ -21,6 +21,6 @@ public class GetGamesRequest implements IRequest {
 
 	@Override
 	public void execute() {
-		// Create a SendGamesResponse, execute that.
+		//Create a SendGamesResponse, execute that.
 	}
 }
