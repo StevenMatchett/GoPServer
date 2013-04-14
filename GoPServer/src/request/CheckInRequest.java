@@ -1,17 +1,24 @@
 package request;
 
 public class CheckInRequest implements IRequest {
-
+	
+	String elementsFromRequest = "";
+	
 	@Override
 	public boolean matches(String input) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+		if (input.substring(input.indexOf('=') + 1, input.indexOf('&'))
+				.compareTo("checkin") == 0) {
+			result = true;
+			elementsFromRequest = input.substring(input.indexOf('&'),
+					input.length());
+		}
+		return result;
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		System.out.println(elementsFromRequest);
 	}
 
 }

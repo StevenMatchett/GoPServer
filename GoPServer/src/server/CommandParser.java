@@ -11,12 +11,17 @@ public class CommandParser {
 
 		IRequest[] commandArray = new CommandFactory().getCommands();                           		
 
-		for(int j = 0; j <= 18; j++){
-			if(j == 18)
+		for(int j = 0; j <= commandArray.length; j++){
+			if(j == commandArray.length)
 				System.out.println("This is not a correct statement.");
 			else{
-				if(commandArray[j].matches(cmdInput)){
-					commandArray[j].execute();
+				try{
+					if(commandArray[j].matches(cmdInput)){
+						commandArray[j].execute();
+						break;
+					}
+				}catch (StringIndexOutOfBoundsException e){
+					System.out.println("Ignoring incoming command...");
 				}
 			}
 		}
