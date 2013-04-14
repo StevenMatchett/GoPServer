@@ -10,7 +10,7 @@ public abstract class Response {
 	private String userID;
 	private int gameID;
 	private int buildingID;
-	private final String dbURL = "jdbc:postgresql://localhost/test";
+	private final String dbURL = "jdbc:postgresql://host:port/database";
 	private Connection dbConn;
 	
 	public Response(String userID, int gameID, int buildingID) {
@@ -58,7 +58,6 @@ public abstract class Response {
 	
 	private void initDBConnection() throws Exception{
 		Class.forName("org.postgresql.Driver");
-			
 		Properties props = new Properties();
 		props.setProperty("user","admin"); //Replace these values with the actual login later.
 		props.setProperty("password", "pass");
