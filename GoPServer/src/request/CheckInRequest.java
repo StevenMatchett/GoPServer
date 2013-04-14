@@ -1,26 +1,31 @@
 package request;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import response.Response;
 
 public class CheckInRequest implements IRequest {
 	
-	String elementsFromRequest = "";
+	//Make sure that a checkin request sends action=checkin, and not action=login.
+	private static final Pattern pattern = Pattern.compile("GET /action=checkin&user_id=(.+)&.*",Pattern.CASE_INSENSITIVE);
+	private String location; //Checkin request needs to send in the category of the location it's checked into.
+	private String userID;
 	
 	@Override
 	public boolean matches(String input) {
-		boolean result = false;
-		if (input.substring(input.indexOf('=') + 1, input.indexOf('&'))
-				.compareTo("checkin") == 0) {
-			result = true;
-			elementsFromRequest = input.substring(input.indexOf('&'),
-					input.length());
+		Matcher matcher = pattern.matcher(input.trim());
+		if(matcher.matches()) {
+			userID = matcher.group(1).trim();
+			location = matcher.group(2).trim();
+			return true;
 		}
-		return result;
+		return false;
 	}
 
 	@Override
 	public Response execute() {
-		System.out.println(elementsFromRequest);
+		System.out.println(userID + " " + location);
 		return null;
 	}
 
