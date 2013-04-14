@@ -1,5 +1,7 @@
 package request;
 
+import response.Response;
+
 public class GetGameRequest implements IRequest {
 
 	@Override
@@ -9,9 +11,8 @@ public class GetGameRequest implements IRequest {
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+	public Response execute() {
+		return null;
 	}
 
 }

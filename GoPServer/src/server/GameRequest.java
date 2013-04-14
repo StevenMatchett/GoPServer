@@ -5,6 +5,8 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import response.Response;
+
 public class GameRequest implements Runnable
 {
 	Socket socket;
@@ -41,10 +43,10 @@ public class GameRequest implements Runnable
 		CommandParser parseString = new CommandParser();
 		
 		//This will create the proper request & execute it. The execution will make a response and run *that*.
-		parseString.matchCommand(requestLine);		
-				
+		Response action = parseString.matchCommand(requestLine);
+		
 		//Echoes request back to client. This will be encapsulated into the Response Classes later.
-		os.writeBytes(requestLine);
+		action.execute(os);
 		os.close();
 		br.close();
 		socket.close();

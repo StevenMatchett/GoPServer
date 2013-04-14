@@ -1,5 +1,7 @@
 package request;
 
+import response.Response;
+
 public class BuyVPRequest implements IRequest {
 
 	@Override
@@ -9,8 +11,8 @@ public class BuyVPRequest implements IRequest {
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
+	public Response execute() {
+		return null;
 	}
 
 }

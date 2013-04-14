@@ -1,6 +1,7 @@
 package response;
 
 //import jdbc for postgres
+import java.io.DataOutputStream;
 import java.sql.*;
 import java.util.Properties;
 
@@ -66,7 +67,7 @@ public abstract class Response {
 	
 	public void pushToDatabase(){
 		/* Select Example code:
-		 * Statement st = conn.createStatement();
+		 * Statement st = dbConn.createStatement();
 		 * ResultSet rs = st.executeQuery("SELECT * FROM mytable WHERE column = 500");
 		 * while (rs.next()) { //Must call rs.next() before using 'rs.getString(#)'
 		 * System.out.print("Column 1 returned ");
@@ -78,12 +79,16 @@ public abstract class Response {
 		
 		/* Delete Example code:
 		 * int foovalue = 500;
-		 * PreparedStatement st = conn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
+		 * PreparedStatement st = dbConn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
 		 * st.setInt(1, foovalue);
 		 * int rowsDeleted = st.executeUpdate();
 		 * System.out.println(rowsDeleted + " rows deleted");
 		 * st.close();
 		 */
+	}
+	
+	public void execute(DataOutputStream out){
+		
 	}
 	
 	public String getUserID() {

@@ -1,5 +1,7 @@
 package request;
 
+import response.Response;
+
 public class CheckInRequest implements IRequest {
 	
 	String elementsFromRequest = "";
@@ -17,8 +19,9 @@ public class CheckInRequest implements IRequest {
 	}
 
 	@Override
-	public void execute() {
+	public Response execute() {
 		System.out.println(elementsFromRequest);
+		return null;
 	}
 
 }

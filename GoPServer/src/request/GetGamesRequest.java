@@ -3,6 +3,8 @@ package request;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import response.Response;
+
 public class GetGamesRequest implements IRequest {
 
 	private static final Pattern pattern = Pattern.compile("RegexStringGoesHere",Pattern.CASE_INSENSITIVE);
@@ -20,7 +22,7 @@ public class GetGamesRequest implements IRequest {
 	}
 
 	@Override
-	public void execute() {
-		//Create a SendGamesResponse, execute that.
+	public Response execute() {
+		return null;
 	}
 }
