@@ -9,21 +9,8 @@ public abstract class Response {
 	
 	private String userID;
 	private int gameID;
-	private int buildingID;
 	private final String dbURL = "jdbc:postgresql://host:port/database";
 	private Connection dbConn;
-	
-	public Response(String userID, int gameID, int buildingID) {
-		this.userID = userID;
-		this.gameID = gameID;
-		this.buildingID = buildingID;
-		
-		try {
-			initDBConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public Response(String userID, int gameID){
 		this.userID = userID;
@@ -104,13 +91,5 @@ public abstract class Response {
 
 	public void setGameID(int gameID) {
 		this.gameID = gameID;
-	}
-
-	public int getBuildingID() {
-		return buildingID;
-	}
-
-	public void setBuildingID(int buildingID) {
-		this.buildingID = buildingID;
 	}
 }

@@ -6,10 +6,6 @@ public class RCreateGame extends Response {
 		super(gameID);
 	}
 	
-	public RCreateGame(String userID, int gameID, int buildingID) {
-		super(userID, gameID, buildingID);
-	}
-	
 	public RCreateGame(String userID, int gameID) {
 		super(userID, gameID);
 	}

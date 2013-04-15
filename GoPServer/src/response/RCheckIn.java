@@ -6,10 +6,6 @@ public class RCheckIn extends Response {
 	
 	private String location;
 
-	public RCheckIn(String userID, int gameID, int buildingID) {
-		super(userID, gameID, buildingID);
-	}
-
 	public RCheckIn(String userID, int gameID) {
 		super(userID, gameID);
 	}
@@ -31,5 +27,4 @@ public class RCheckIn extends Response {
 	public void execute(DataOutputStream out){
 		
 	}
-
 }

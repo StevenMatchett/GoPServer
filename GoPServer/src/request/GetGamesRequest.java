@@ -3,26 +3,29 @@ package request;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import response.RGetCurrentGames;
 import response.Response;
 
 public class GetGamesRequest implements IRequest {
 
-	private static final Pattern pattern = Pattern.compile("RegexStringGoesHere",Pattern.CASE_INSENSITIVE);
-	
+	//GET /action=get_games&user_id=null HTTP/1.1 User-Agent: Dalvik/1.6.0 (Linux; U; Android 4.2.2; SCH-I535 Build/JDQ39) Host: 54.225.205.16:46789 Connection: Keep-Alive Accept-Encoding: gzip
+	private static final Pattern pattern = Pattern.compile("GET /action=get_games&user_id=(.+) HTTP.*",Pattern.CASE_INSENSITIVE);
+	private String userID;
+
 	@Override
 	public boolean matches(String input) {
 		Matcher matcher = pattern.matcher(input.trim());
-		
 		if(matcher.matches()) {
-			//If a request class has any Regex groups, set those variables = Group# here.
+			userID = matcher.group(1).trim();
+			//gameID = Integer.parseInt(matcher.group(2).trim());
 			return true;
 		}
-		
 		return false;
 	}
 
 	@Override
 	public Response execute() {
-		return null;
+		System.out.println(userID);
+		return new RGetCurrentGames(userID);
 	}
 }

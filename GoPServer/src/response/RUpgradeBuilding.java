@@ -2,24 +2,23 @@ package response;
 
 public class RUpgradeBuilding extends Response {
 
+	private int buildingID;
+	
 	public RUpgradeBuilding(String userID, int gameID, int buildingID) {
-		super(userID, gameID, buildingID);
-		// TODO Auto-generated constructor stub
+		super(userID, gameID);
+		this.buildingID = buildingID;
 	}
 
 	public RUpgradeBuilding(String userID, int gameID) {
 		super(userID, gameID);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RUpgradeBuilding(String userID) {
 		super(userID);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RUpgradeBuilding(int gameID) {
 		super(gameID);
-		// TODO Auto-generated constructor stub
 	}
 
 }
