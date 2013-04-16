@@ -74,7 +74,8 @@ public abstract class Response {
 	}
 	
 	public void execute(DataOutputStream out){
-		
+		//out.writeBytes(""); Use this to send a string out of the socket to the client. The output stream already
+		//has the socket information.
 	}
 	
 	public String getUserID() {
