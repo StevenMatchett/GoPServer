@@ -84,20 +84,20 @@ Emphasis on Build Material, Fossil Fuels, and Produce
 	*	Luxuries - 8.333%  
 	*	Produce - 15%  
 
-SHOPS & SERVICES
-Emphasis on Artifacts, Blueprints, and Produce
-	*	Artifacts - 10%
-	*	Blueprints - 20%
-	*	Fossil Fuels - 6.667%
-	*	Build Material - 6.667%
-	*	Luxuries - 6.667%
-	*	Produce - 50%
+SHOPS & SERVICES  
+Emphasis on Artifacts, Blueprints, and Produce  
+	*	Artifacts - 10%  
+	*	Blueprints - 20%  
+	*	Fossil Fuels - 6.667%  
+	*	Build Material - 6.667%  
+	*	Luxuries - 6.667%  
+	*	Produce - 50%  
 
-TRAVEL & TRANSPORT
-Emphasis on Fossil Fuels and Luxuries
-	*	Artifacts - 2.5%
-	*	Blueprints - 2.5%
-	*	Fossil Fuels - 85%
-	*	Build Material - 2.5%
-	*	Luxuries - 5%
-	*	Produce - 2.5%
+TRAVEL & TRANSPORT  
+Emphasis on Fossil Fuels and Luxuries  
+	*	Artifacts - 2.5%  
+	*	Blueprints - 2.5%  
+	*	Fossil Fuels - 85%  
+	*	Build Material - 2.5%  
+	*	Luxuries - 5%  
+	*	Produce - 2.5%  
