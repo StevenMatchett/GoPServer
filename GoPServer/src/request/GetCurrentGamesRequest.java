@@ -8,7 +8,7 @@ import response.Response;
 
 public class GetCurrentGamesRequest implements IRequest {
 
-	private static final Pattern pattern = Pattern.compile("GET /action=get_current_games&user_id=(.+).*",Pattern.CASE_INSENSITIVE);;
+	private static final Pattern pattern = Pattern.compile("GET /action=get_current_games&user_id=(.+)",Pattern.CASE_INSENSITIVE);;
 	private String userID;
 	
 	@Override
