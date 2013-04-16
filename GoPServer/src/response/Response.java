@@ -4,6 +4,7 @@ package response;
 import java.io.DataOutputStream;
 import java.sql.*;
 import java.util.Properties;
+import org.json.*;
 
 public abstract class Response {
 	
@@ -74,6 +75,12 @@ public abstract class Response {
 	}
 	
 	public void execute(DataOutputStream out){
+		JSONObject baseResponse = new JSONObject(); 
+		try {
+			baseResponse.accumulate("userid", userID);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		//out.writeBytes(""); Use this to send a string out of the socket to the client. The output stream already
 		//has the socket information.
 	}
