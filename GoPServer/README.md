@@ -1,18 +1,25 @@
-This is the format of a request from the client.
+Request Format
+-----------------------------------
+GET /action=login&user_id=null&user_name=null HTTP/1.1  
 
-GET /action=login&user_id=null&user_name=null HTTP/1.1
-User-Agent: Dalvik/1.6.0 (Linux; U; Android 4.2.2; SCH-I535 Build/JDQ39)
-Host: 54.225.205.16:46789
-Connection: Keep-Alive
-Accept-Encoding: gzip
-Incoming connection.
-Starting thread.
+GET /action=login&user_id=39091967&user_name=Steven_Matchett HTTP/1.1  
 
-GET /action=login&user_id=39091967&user_name=Steven_Matchett HTTP/1.1
-User-Agent: Dalvik/1.6.0 (Linux; U; Android 4.2.2; SCH-I535 Build/JDQ39)
-Host: 54.225.205.16:46789
-Connection: Keep-Alive
-Accept-Encoding: gzip
+Using regular expressions, we can parse the request, take the data they give us, do stuff with it, then return some JSON.
+Just like one of them, API's! Well be working with Postgresql for the database stuff.
+
+
+JSON Object Formats
+--------------------------------------
+We will be formatting the JSON objects with the following scheme:
+
+	 {"id_info": {"userID": "user_id_number"}}
+	 {"id_info": {"gameID": "game_id_number"}}
+	 {"game_info": {"buildingInfo": List<BuildingLvls>}}
+	 {"game_info": {"resourceInfo": List<ResourcesCount>}}
+	 {"game_info": {"victoryPoints": valueOfVP}}
+	 
+In theory, this should allow us to build an object that is more robust for client side to read. 
+We may need to add more formats as we cross more bridges. For example, returning lists of games and players.
 
 Resource Allocation
 --------------------------------------
