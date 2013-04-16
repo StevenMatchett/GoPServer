@@ -4,7 +4,8 @@ package response;
 import java.io.DataOutputStream;
 import java.sql.*;
 import java.util.Properties;
-import org.json.*;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public abstract class Response {
 	
