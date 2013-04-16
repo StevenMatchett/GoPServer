@@ -11,13 +11,20 @@ public class CommandParser {
 	public Response matchCommand(String cmdInput){
 
 		IRequest[] commandArray = new CommandFactory().getCommands();                           		
-
-		for(int j = 0; j <= commandArray.length; j++){
-			if(commandArray[j].matches(cmdInput))
-				return commandArray[j].execute();
+		Response response = null;
+		
+		try { 
+			for(int j = 0; j < commandArray.length; j++){
+				if(commandArray[j].matches(cmdInput)){
+					response = commandArray[j].execute();
+					break;
+				}
+			}
+		} catch(NullPointerException e){
+			System.out.println("Command sent found.");
 		}
 
-		return null;
+		return response;
 	}
 }
 
