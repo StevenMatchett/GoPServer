@@ -89,7 +89,7 @@ public abstract class Response {
 		 * rs.close();
 		 * st.close();
 		 */
-		
+		//Why won't it commit..
 		try {
 			Statement st = dbConn.createStatement();
 			ResultSet rs = st.executeQuery(query); 
