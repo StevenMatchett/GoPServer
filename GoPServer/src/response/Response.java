@@ -9,7 +9,7 @@ public abstract class Response {
 	
 	private String userID;
 	private int gameID;
-	private final String dbURL = "jdbc:postgresql://host:port/database";
+	private final String dbURL = "jdbc:postgresql://54.225.205.16:5432/Gameofphones";
 	private Connection dbConn;
 	
 	public Response(String userID, int gameID){
@@ -46,12 +46,39 @@ public abstract class Response {
 	private void initDBConnection() throws Exception{
 		Class.forName("org.postgresql.Driver");
 		Properties props = new Properties();
-		props.setProperty("user","admin"); //Replace these values with the actual login later.
+		props.setProperty("user","Steven"); //Replace these values with the actual login later.
 		props.setProperty("password", "pass");
 		dbConn = DriverManager.getConnection(dbURL, props);
 	}
 	
-	public void pushToDatabase(){
+	public void pushToDatabase(String query){
+		/* Delete Example code:
+		 * int foovalue = 500;
+		 * PreparedStatement st = dbConn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
+		 * st.setInt(1, foovalue);
+		 * int rowsDeleted = st.executeUpdate();
+		 * System.out.println(rowsDeleted + " rows deleted");
+		 * st.close();
+		 */
+		
+		try {
+			Statement st = dbConn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			int i = 1;
+			while (rs.next()) {
+				System.out.println("Column: "+i);
+				System.out.println(rs.getString(i));
+				i++;
+			}
+			rs.close();
+			st.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void pullFromDatabase(String query){
 		/* Select Example code:
 		 * Statement st = dbConn.createStatement();
 		 * ResultSet rs = st.executeQuery("SELECT * FROM mytable WHERE column = 500");
@@ -63,14 +90,21 @@ public abstract class Response {
 		 * st.close();
 		 */
 		
-		/* Delete Example code:
-		 * int foovalue = 500;
-		 * PreparedStatement st = dbConn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
-		 * st.setInt(1, foovalue);
-		 * int rowsDeleted = st.executeUpdate();
-		 * System.out.println(rowsDeleted + " rows deleted");
-		 * st.close();
-		 */
+		try {
+			Statement st = dbConn.createStatement();
+			ResultSet rs = st.executeQuery(query); 
+			int i = 1;
+			while (rs.next()) {
+				System.out.println("Column: "+i);
+				System.out.println(rs.getString(i));
+				i++;
+			}
+			rs.close();
+			st.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void execute(DataOutputStream out){
