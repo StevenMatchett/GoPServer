@@ -1,10 +1,11 @@
 package response;
 
+import gameResources.*;
+
 import java.io.DataOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import resources.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;

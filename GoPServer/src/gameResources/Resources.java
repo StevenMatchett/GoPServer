@@ -1,4 +1,4 @@
-package resources;
+package gameResources;
 
 //Implement this resource any time you need resource probabilities or whatevers.
 public class Resources {

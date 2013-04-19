@@ -1,9 +1,10 @@
 package request;
 
+import gameResources.Resources;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import resources.Resources;
 import response.RUpgradeBuilding;
 import response.Response;
 

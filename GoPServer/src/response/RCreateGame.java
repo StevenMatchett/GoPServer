@@ -1,12 +1,14 @@
 package response;
 
 import java.io.DataOutputStream;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import server.*;
+import java.sql.Statement;
 
 public class RCreateGame extends Response {
+
+	private String gameName;
+	private int maxPlayerCount;
+	private String mapName;
+	private int conquestPoints;
 
 	public RCreateGame(int gameID) {
 		super(gameID);
@@ -21,12 +23,12 @@ public class RCreateGame extends Response {
 	}
 
 	public RCreateGame(String userID, String lobbyName, String map,
-		int pointsCount, int playerCount) {
+			int pointsCount, int playerCount) {
 		super(userID);
-		super.gameName = lobbyName;
-		super.mapName = map;
-		super.conquestPointWinCondition = pointsCount;
-		super.maxPlayerCount = playerCount;
+		gameName = lobbyName;
+		mapName = map;
+		conquestPoints = pointsCount;
+		maxPlayerCount = playerCount;
 	}
 
 	public void execute(DataOutputStream out) throws Exception {
@@ -36,31 +38,26 @@ public class RCreateGame extends Response {
 		super.execute(out);
 	}
 
-	private  void pushNewGame() {
-		PreparedStatement gameStatement = null;
-		
+	private void pushNewGame() {
+
 		try{
-			initDBConnection();
-			gameStatement = dbConn.prepareStatement("INSERT INTO game(game_id,turn_number,name,map,max_players,conquest_points) VALUES (?,?,?,?,?,?);");
-			gameStatement.setInt(1, gameID);
-			gameStatement.setInt(2, 0);
-			gameStatement.setString(3, gameName);
-			gameStatement.setString(4, mapName);
-			gameStatement.setInt(5, maxPlayerCount);
-			gameStatement.setInt(6, conquestPointWinCondition);
-			gameStatement.executeUpdate();
-			
+			Statement gameStatement = dbConn.createStatement();
+			gameStatement.executeUpdate("INSERT INTO game(game_id,turn_number,name,map,max_players,conquest_points) VALUES ("+gameID+",0,"+gameName+","+mapName+","+maxPlayerCount+","+conquestPoints+");");
+			gameStatement.close();
 		} catch (Exception e){
 			e.printStackTrace();
-		} finally {
-			try{
-				if (gameStatement != null)
-					gameStatement.close();
-				if (dbConn != null)
-					dbConn.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
 		}
+	}
+
+	public void pushNewPlayer() {
+		try{
+			Statement playerStatement = dbConn.createStatement();
+			playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
+					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ("+userID+","+gameID+",0,0,0,0,0,0,0,0,0,0,0,0);");
+			System.out.println(userID);
+			playerStatement.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		} 
 	}
 }
