@@ -41,12 +41,14 @@ public class GameRequest implements Runnable
 //		}
 		
 		CommandParser parseString = new CommandParser();
-		
 		//This will create the proper request & execute it. The execution will make a response and run *that*.
-		Response action = parseString.matchCommand(requestLine);
-		
+		if (parseString != null){
+			System.out.println(requestLine);
+			Response action = parseString.matchCommand(requestLine);
+			action.execute(os);
+		}
+			
 		//Echoes request back to client. This will be encapsulated into the Response Classes later.
-		action.execute(os);
 		os.close();
 		br.close();
 		socket.close();

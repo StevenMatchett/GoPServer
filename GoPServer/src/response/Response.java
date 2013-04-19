@@ -6,17 +6,19 @@ import java.sql.*;
 import java.util.Properties;
 import org.json.JSONObject;
 import org.json.JSONException;
+import java.util.UUID;
 
 public abstract class Response {
 	
 	protected String userID;
-	protected int gameID;
+	//lelelelelelelelelelelelelelelele ^_^
+	protected int gameID = (int) (Math.random() * (double)Integer.MAX_VALUE);
 	protected String gameName;
 	protected int maxPlayerCount;
 	protected String mapName;
 	protected int conquestPointWinCondition;
 	
-	protected final String dbURL = "jdbc:postgresql://54.225.205.16:5432/gameofphones";
+	protected final String dbURL = "jdbc:postgresql://localhost:5432/gameofphones";
 	protected Connection dbConn;
 	
 	public Response(String userID, int gameID){
@@ -58,30 +60,41 @@ public abstract class Response {
 		dbConn = DriverManager.getConnection(dbURL, props);
 	}
 	
-	public void pushToDatabase(String query){
-		/* Delete Example code:
-		 * int foovalue = 500;
-		 * PreparedStatement st = dbConn.prepareStatement("DELETE FROM mytable WHERE columnfoo = ?");
-		 * st.setInt(1, foovalue);
-		 * int rowsDeleted = st.executeUpdate();
-		 * System.out.println(rowsDeleted + " rows deleted");
-		 * st.close();
-		 */
+	public void pushNewPlayer() {
+		PreparedStatement playerStatement = null;
 		
-		try {
-			Statement st = dbConn.createStatement();
-			ResultSet rs = st.executeQuery(query);
-			int i = 1;
-			while (rs.next()) {
-				System.out.println("Column: "+i);
-				System.out.println(rs.getString(i));
-				i++;
-			}
-			rs.close();
-			st.close();
+		try{
+			initDBConnection();
+			playerStatement = dbConn.prepareStatement("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
+					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+			System.out.println(userID);
+			playerStatement.setString(1, userID);
+			playerStatement.setInt(2, gameID);
+			playerStatement.setInt(3, 0);
+			playerStatement.setInt(4, 0);
+			playerStatement.setInt(5, 0);
+			playerStatement.setInt(6, 0);
+			playerStatement.setInt(7, 0);
+			playerStatement.setInt(8, 0);
+			playerStatement.setInt(9, 0);
+			playerStatement.setInt(10, 0);
+			playerStatement.setInt(11, 0);
+			playerStatement.setInt(12, 0);
+			playerStatement.setInt(13, 0);
+			playerStatement.setInt(14, 0);
+			playerStatement.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (Exception e){
 			e.printStackTrace();
+		} finally {
+			try{
+				if (playerStatement != null)
+					playerStatement.close();
+				if (dbConn != null)
+					dbConn.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
 		}
 	}
 	

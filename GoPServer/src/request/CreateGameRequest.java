@@ -9,7 +9,7 @@ import response.Response;
 public class CreateGameRequest implements IRequest {
 	
 	//GET /action=create_game&user_id=null HTTP/1.1 User-Agent: Dalvik/1.6.0 (Linux; U; Android 4.2.2; SCH-I535 Build/JDQ39) Host: 54.225.205.16:46789 Connection: Keep-Alive Accept-Encoding: gzip
-	private static final Pattern pattern = Pattern.compile("GET /action=new_game&user_id=(.+)&lobby_name=(.+)&map=(.+)&points=(.+)&players=(.+)",Pattern.CASE_INSENSITIVE);
+	private static final Pattern pattern = Pattern.compile("action=new_game&user_id=(.+)&lobby_name=(.+)&map=(.+)&points=(.+)&players=(.+)",Pattern.CASE_INSENSITIVE);
 	//private int gameID;
 	private String userID;
 	private String lobbyName;

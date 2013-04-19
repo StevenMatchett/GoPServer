@@ -21,7 +21,7 @@ public class CommandParser {
 				}
 			}
 		} catch(NullPointerException e){
-			System.out.println("Command sent found.");
+			System.out.println("Command sent not found.");
 		}
 
 		return response;
