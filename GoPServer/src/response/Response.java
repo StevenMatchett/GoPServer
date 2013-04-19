@@ -9,10 +9,15 @@ import org.json.JSONException;
 
 public abstract class Response {
 	
-	private String userID;
-	private int gameID;
-	private final String dbURL = "jdbc:postgresql://54.225.205.16:5432/Gameofphones";
-	private Connection dbConn;
+	protected String userID;
+	protected int gameID;
+	protected String gameName;
+	protected int maxPlayerCount;
+	protected String mapName;
+	protected int conquestPointWinCondition;
+	
+	protected final String dbURL = "jdbc:postgresql://54.225.205.16:5432/gameofphones";
+	protected Connection dbConn;
 	
 	public Response(String userID, int gameID){
 		this.userID = userID;
@@ -45,10 +50,10 @@ public abstract class Response {
 		}
 	}
 	
-	private void initDBConnection() throws Exception{
+	protected void initDBConnection() throws Exception{
 		Class.forName("org.postgresql.Driver");
 		Properties props = new Properties();
-		props.setProperty("user","Steven"); //Replace these values with the actual login later.
+		props.setProperty("user","stevenmatchett"); //Replace these values with the actual login later.
 		props.setProperty("password", "pass");
 		dbConn = DriverManager.getConnection(dbURL, props);
 	}
@@ -113,8 +118,8 @@ public abstract class Response {
 		Class.forName("org.json.JSONObject");
 		JSONObject baseResponse = new JSONObject(); 
 		try {
-			baseResponse.accumulate("id_info", userID);
-			baseResponse.append("id_info", gameID);
+			baseResponse.accumulate("games", userID);
+			out.writeChars(baseResponse.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
