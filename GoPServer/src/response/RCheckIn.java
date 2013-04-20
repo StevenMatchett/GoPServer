@@ -49,7 +49,7 @@ public class RCheckIn extends Response {
 			e.printStackTrace();
 			super.execute(out);
 		}
-		System.out.println("Crashing before 3");
+		setResources();
 		//Generate resources based on location & update Player Objects
 		for(Player p : playerObjects){
 			p.getFromDatabase();
