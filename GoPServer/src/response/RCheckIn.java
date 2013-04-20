@@ -57,6 +57,8 @@ public class RCheckIn extends Response {
 			//update db entries
 			p.updateDatabaseRecord();
 		}
+		
+		super.execute(out);
 	}
 
 
@@ -66,7 +68,7 @@ public class RCheckIn extends Response {
 	public void setResources(){
 		if(location.equalsIgnoreCase("Arts & Entertainment"))
 			resourceSet = new Resources(0.65f, 0.025f, 0.025f, 0.025f, 0.25f, 0.025f);
-		else if(location.equalsIgnoreCase("College $ University"))
+		else if(location.equalsIgnoreCase("College & University"))
 			resourceSet = new Resources(0.05f, 0.75f, 0.05f, 0.05f, 0.05f, 0.05f);
 		else if(location.equalsIgnoreCase("Food"))
 			resourceSet = new Resources(0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.9f);
