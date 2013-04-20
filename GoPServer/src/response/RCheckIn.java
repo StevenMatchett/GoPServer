@@ -3,16 +3,15 @@ package response;
 import gameResources.*;
 
 import java.io.DataOutputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class RCheckIn extends Response {
-	
+
 	private String location;
-	private Map<String,Resources> resourceMap = new HashMap<String,Resources>();
+	private ArrayList<Player> playerObjects;
+	private Resources resourceSet;
 
 	public RCheckIn(String userID, int gameID) {
 		super(userID, gameID);
@@ -25,39 +24,68 @@ public class RCheckIn extends Response {
 	public RCheckIn(int gameID) {
 		super(gameID);
 	}
-	
+
 	public RCheckIn(String userID, String location){
 		super(userID);
 		this.location = location;
 	}
-	
+
 	@Override
 	public void execute(DataOutputStream out) throws Exception{
-		super.execute(out);
-		JSONObject resourceResponse = new JSONObject();
-		try{
-			resourceResponse.accumulate("game_info", location);
-		}catch (JSONException e){
-			e.printStackTrace();
+		//Select all Players for a userid.
+		//"SELECT player_id FROM players WHERE players.user_id = "+userID+";"
+		Statement st = dbConn.createStatement();
+		ResultSet rs = st.executeQuery("SELECT id FROM player WHERE player.user_id = "+userID+";");
+		int i = 1;
+		while (rs.next()) {
+			System.out.println("Getting Column: "+i);
+			//Create Player objects for each class
+			playerObjects.add(new Player(rs.getString(i), dbConn));
+			i++;
+		}
+		rs.close();
+		st.close();
+		//Generate resources based on location & update Player Objects
+		for(Player p : playerObjects){
+			p.setNumArtifacts(p.getNumArtifacts() + resourceSet.getArtifact());
+			p.setNumBlueprints(p.getNumBlueprints() + resourceSet.getBlueprints());
+			p.setNumFuel(p.getNumFuel() + resourceSet.getFood());
+			p.setNumLuxuries(p.getNumLuxuries() + resourceSet.getLuxuries());
+			p.setNumMaterial(p.getNumMaterial() + resourceSet.getMaterials());
+			p.setNumProduce(p.getNumProduce() + resourceSet.getFood());
+			
+			//update db entries
+			p.updateDatabaseRecord();
 		}
 	}
-	
-	
+
+
 	/* Will more than likely need to change the values of each key, as they may not match exactly what we get from 
 	 * Foursquare on the client side. For now, they are fine the way they are...
 	 */
-	public void generateResourcesMap(){
-		resourceMap.put("Arts & Entertainment", new Resources(0.65f, 0.025f, 0.025f, 0.025f, 0.25f, 0.025f));
-		resourceMap.put("College $ University", new Resources(0.05f, 0.75f, 0.05f, 0.05f, 0.05f, 0.05f));
-		resourceMap.put("Food", new Resources(0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.9f));
-		resourceMap.put("Professional & Other Places", new Resources(0.132f, 0.33f, 0.132f, 0.132f, 0.132f, 0.132f));
-		resourceMap.put("Nightlife Spots", new Resources(0.33f, 0.07667f, 0.07667f, 0.07667f, 0.33f, 0.1f));
-		resourceMap.put("Residences", new Resources(0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f));
-		resourceMap.put("Great Outdoors", new Resources(0.08333f, 0.08333f, 0.15f, 0.45f, 0.08333f, 0.15f));
-		resourceMap.put("Shops & Services", new Resources(0.1f, 0.2f, 0.06667f, 0.06667f, 0.06667f, 0.5f));
-		resourceMap.put("Travel & Transport", new Resources(0.025f, 0.025f, 0.85f, 0.025f, 0.05f, 0.025f));
+	public void setResources(){
+		if(location.equalsIgnoreCase("Arts & Entertainment"))
+			resourceSet = new Resources(0.65f, 0.025f, 0.025f, 0.025f, 0.25f, 0.025f);
+		else if(location.equalsIgnoreCase("College $ University"))
+			resourceSet = new Resources(0.05f, 0.75f, 0.05f, 0.05f, 0.05f, 0.05f);
+		else if(location.equalsIgnoreCase("Food"))
+			resourceSet = new Resources(0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.9f);
+		else if(location.equalsIgnoreCase("Professional & Other Places"))
+			resourceSet = new Resources(0.132f, 0.33f, 0.132f, 0.132f, 0.132f, 0.132f);
+		else if(location.equalsIgnoreCase("Nightlife Spots"))
+			resourceSet = new Resources(0.33f, 0.07667f, 0.07667f, 0.07667f, 0.33f, 0.1f);
+		else if(location.equalsIgnoreCase("Residences"))
+			resourceSet = new Resources(0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f);
+		else if(location.equalsIgnoreCase("Great Outdoors"))
+			resourceSet = new Resources(0.08333f, 0.08333f, 0.15f, 0.45f, 0.08333f, 0.15f);
+		else if(location.equalsIgnoreCase("Shops & Services"))
+			resourceSet = new Resources(0.1f, 0.2f, 0.06667f, 0.06667f, 0.06667f, 0.5f);
+		else if(location.equalsIgnoreCase("Travel & Transport"))
+			resourceSet = new Resources(0.025f, 0.025f, 0.85f, 0.025f, 0.05f, 0.025f);
+		else
+			resourceSet = new Resources(0, 0, 0, 0, 0, 0);
 	}
-	
+
 	public Resources getResourcesForCheck(){
 		return null;
 	}

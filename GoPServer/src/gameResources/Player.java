@@ -1,8 +1,11 @@
 package gameResources;
 
-public class Player {
+import java.sql.Connection;
+import java.sql.Statement;
 
-	private int playerID;
+public class Player implements GameObject {
+
+	private String playerID;
 	private String playerName;
 	private int gameID;
 	private int conquestPoints;
@@ -17,10 +20,22 @@ public class Player {
 	private int numMaterial;
 	private int numLuxuries;
 	private int numProduce;
+	private Connection dbConn;
 	
 	public Player(){}
 	
-	public Player(int pID, String pName, int gID, int cp, int fl, int sl, int tl, int ll, int al, int a, int b, int f, int m, int l, int p){
+	public Player(String pID, Connection db){
+		playerID = pID;
+		dbConn = db;
+	}
+	
+	public Player(String pID, int gID, Connection db){
+		playerID = pID;
+		gameID = gID;
+		dbConn = db;
+	}
+	
+	public Player(String pID, String pName, int gID, int cp, int fl, int sl, int tl, int ll, int al, int a, int b, int f, int m, int l, int p, Connection db){
 		playerID = pID;
 		playerName = pName;
 		gameID = gID;
@@ -36,6 +51,7 @@ public class Player {
 		numMaterial = m;
 		numLuxuries = l;
 		numProduce = p;
+		dbConn = db;
 	}
 	
 	public String toString(){
@@ -50,12 +66,32 @@ public class Player {
 		
 		return result;
 	}
+	
+	public void getFromDatabase(){
+		
+	}
+	
+	public void updateDatabaseRecord(){
+		try{
+			Statement playerStatement = dbConn.createStatement();
+			playerStatement.executeUpdate("UPDATE player(id,game_id,conquest_points," +
+					"factory_level,studio_level,temple_level,lab_level,agency_level,"
+					+ "artifacts,blueprints,fuel,material,luxuries,produce) " 
+					+ "VALUES ("+playerID+","+gameID+","+conquestPoints+","
+					+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl+","+agencyLvl+","
+					+numArtifacts+","+numBlueprints+","+numFuel+","+numMaterial+","+numLuxuries+","+numProduce+");");
+			System.out.println("Updated player: "+playerID);
+			playerStatement.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		} 
+	}
 
-	public int getPlayerID() {
+	public String getPlayerID() {
 		return playerID;
 	}
 
-	public void setPlayerID(int playerID) {
+	public void setPlayerID(String playerID) {
 		this.playerID = playerID;
 	}
 
@@ -169,6 +205,14 @@ public class Player {
 
 	public void setNumProduce(int numProduce) {
 		this.numProduce = numProduce;
+	}
+	
+	public Connection getDbConn() {
+		return dbConn;
+	}
+
+	public void setDbConn(Connection dbConn) {
+		this.dbConn = dbConn;
 	}
 	
 }

@@ -2,6 +2,7 @@ package response;
 
 //import jdbc for postgres
 import gameResources.Game;
+import gameResources.Player;
 
 import java.io.DataOutputStream;
 import java.sql.*;
@@ -14,6 +15,7 @@ public abstract class Response {
 	protected String userID;
 	protected int gameID = (int) (Math.random() * Double.MAX_VALUE);
 	protected Game game;
+	protected Player player;
 	
 	protected final String dbURL = "jdbc:postgresql://localhost:5432/gameofphones";
 	protected Connection dbConn;
@@ -58,22 +60,8 @@ public abstract class Response {
 	}
 	
 	public Game getGame(){
-		Game result = new Game();
-		try {
-			Statement st = dbConn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT FROM game WHERE game_id="+gameID+";"); 
-			int i = 1;
-			while (rs.next()) {
-				System.out.println("Column: "+i);
-				System.out.println(rs.getString(i));
-				i++;
-			}
-			rs.close();
-			st.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		Game result = new Game(gameID, dbConn);
+		result.getFromDatabase();
 		return result;
 	}
 	

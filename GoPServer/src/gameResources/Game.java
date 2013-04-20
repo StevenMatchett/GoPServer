@@ -1,8 +1,12 @@
 package gameResources;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements GameObject {
 	
 	private int gameID;
 	private String gameName;
@@ -10,16 +14,23 @@ public class Game {
 	private String mapName;
 	private int maxConquestPoints;
 	private ArrayList<Player> players;
+	private Connection dbConn;
 	
 	public Game(){}
 	
-	public Game(int id, String name, int maxp, String map, int maxCP, ArrayList<Player> playerList){
+	public Game(int id, Connection db){
+		gameID = id;
+		dbConn = db;
+	}
+	
+	public Game(int id, String name, int maxp, String map, int maxCP, ArrayList<Player> playerList, Connection db){
 		gameID = id;
 		gameName = name;
 		maxPlayers = maxp;
 		mapName = map;
 		maxConquestPoints = maxCP;
 		players = playerList;
+		dbConn = db;
 	}
 	
 	public String toString() {
@@ -34,6 +45,36 @@ public class Game {
 		result.append("]}");
 		
 		return result.toString();
+	}
+	
+	public void getFromDatabase(){
+		try {
+			Statement st = dbConn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM game WHERE game_id="+gameID+";"); 
+			int i = 1;
+			while (rs.next()) {
+				System.out.println("Column: "+i);
+				System.out.println(rs.getString(i));
+				i++;
+			}
+			rs.close();
+			st.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateDatabaseRecord(){
+		try{
+			Statement playerStatement = dbConn.createStatement();
+			//playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
+			//		+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ("+userID+","+gameID+",0,0,0,0,0,0,0,0,0,0,0,0);");
+			System.out.println(gameID);
+			playerStatement.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		} 
 	}
 
 	public int getGameID() {
@@ -82,6 +123,14 @@ public class Game {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+	
+	public Connection getDbConn() {
+		return dbConn;
+	}
+
+	public void setDbConn(Connection dbConn) {
+		this.dbConn = dbConn;
 	}
 
 }
