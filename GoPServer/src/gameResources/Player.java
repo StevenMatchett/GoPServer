@@ -72,12 +72,10 @@ public class Player implements GameObject {
 					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level" +
 					"artifacts,blueprints,fuel,material,luxuries,produce FROM player " +
 					"WHERE player.id = "+playerID+" AND player.game_id = "+gameID+";");
-			int i = 1;
 			
 			while (rs.next()) {
-				System.out.println("Getting Column: "+i);
-				rs.getString(i);
-				i++;
+				System.out.println("Getting Column 1 ");
+				rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

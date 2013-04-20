@@ -36,12 +36,10 @@ public class RCheckIn extends Response {
 		//"SELECT player_id FROM players WHERE players.user_id = "+userID+";"
 		Statement st = dbConn.createStatement();
 		ResultSet rs = st.executeQuery("SELECT id,game_id FROM player WHERE player.id = "+userID+";");
-		int i = 1;
 		while (rs.next()) {
-			System.out.println("Getting Column: "+i);
+			System.out.println("Getting Columns ");
 			//Create Player objects for each class
-			playerObjects.add(new Player(rs.getString(i),1513, dbConn)); //Need to split resultset into player/gameid
-			i++;
+			playerObjects.add(new Player(rs.getString(1),Integer.parseInt(rs.getString(2)), dbConn)); //Need to split resultset into player/gameid
 		}
 		rs.close();
 		st.close();
