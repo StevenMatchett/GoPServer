@@ -96,7 +96,7 @@ public abstract class Response {
 	
 	public void execute(DataOutputStream out) throws Exception{
 		Class.forName("org.json.JSONObject");
-		JSONObject baseResponse = new JSONObject(""); 
+		JSONObject baseResponse = new JSONObject("{}"); 
 		out.writeBytes(baseResponse.toString());
 	}
 	
