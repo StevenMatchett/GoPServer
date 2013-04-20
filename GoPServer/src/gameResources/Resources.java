@@ -4,45 +4,81 @@ package gameResources;
 public class Resources {
 
 	//Probability Constants
-	public float Artifact;
-	public float Blueprints;
-	public float Fuel;
-	public float Materials;
-	public float Luxuries;
-	public float Food;
+	private float p_Artifact;
+	private float p_Blueprints;
+	private float p_Fuel;
+	private float p_Materials;
+	private float p_Luxuries;
+	private float p_Food;
+	
+	private int artifacts = 0;
+	private int blueprints = 0;
+	private int fuel = 0;
+	private int materials = 0;
+	private int luxuries = 0;
+	private int food = 0;
 	//This is the value you multiply against the resources to get the amount per checkin.
 	public final int resourceMultiplier = 100;
 	
 	public Resources(float art, float blue, float fuel, float mat, float lux, float food){
-	    Artifact = art;
-		Blueprints = blue;
-		Materials = mat;
-		Fuel = fuel;
-		Luxuries = lux;
-		Food = food;
+	    p_Artifact = art;
+		p_Blueprints = blue;
+		p_Materials = mat;
+		p_Fuel = fuel;
+		p_Luxuries = lux;
+		p_Food = food;
 	}
 
 	public int getArtifact() {
-		return Math.round(Artifact*resourceMultiplier);
+		return artifacts;
 	}
 
 	public int getBlueprints() {
-		return Math.round(Blueprints*resourceMultiplier);
+		return blueprints;
 	}
 
 	public int getFuel() {
-		return Math.round(Fuel*resourceMultiplier);
+		return fuel;
 	}
 
 	public int getMaterials() {
-		return Math.round(Materials*resourceMultiplier);
+		return materials;
 	}
 
 	public int getLuxuries() {
-		return Math.round(Luxuries*resourceMultiplier);
+		return luxuries;
 	}
 
 	public int getFood() {
-		return Math.round(Food*resourceMultiplier);
-	}	
+		return food;
+	}
+	
+	public void generateResources(int resourceModifier){
+		//Resource Modifier will be the level of the player's factory.
+		resourceModifier += Math.round(Math.random()*3);
+		
+		//Range time!
+		int artifactRange = Math.round(p_Artifact*resourceMultiplier);
+		int blueprintRange = artifactRange + Math.round(p_Blueprints*resourceMultiplier);
+		int fuelRange = blueprintRange + Math.round(p_Fuel*resourceMultiplier);
+		int materialRange = fuelRange + Math.round(p_Materials*resourceMultiplier);
+		int luxuriesRange = materialRange + Math.round(p_Luxuries*resourceMultiplier);
+		int foodRange = luxuriesRange + Math.round(p_Food*resourceMultiplier);
+		
+		for(int i = 0; i<resourceModifier; i++){
+			int randomResourceVariable = (int) Math.round(Math.random()*100);
+			if(randomResourceVariable <= artifactRange){
+				artifacts++;
+			}else if(randomResourceVariable <= blueprintRange){
+				blueprints++;
+			}else if(randomResourceVariable <= fuelRange){
+				fuel++;
+			}else if(randomResourceVariable <= materialRange){
+				materials++;
+			}else if(randomResourceVariable <= luxuriesRange){
+				luxuries++;
+			}else //Food catch all. ^_^
+				food++;
+		}
+	}
 }
