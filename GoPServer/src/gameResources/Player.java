@@ -81,6 +81,11 @@ public class Player implements GameObject {
 			e.printStackTrace();
 		}
 	}
+	
+	public void createPlayer() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public void updateDatabaseRecord(){
 		try{

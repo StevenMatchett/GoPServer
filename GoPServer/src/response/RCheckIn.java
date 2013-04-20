@@ -57,7 +57,6 @@ public class RCheckIn extends Response {
 			//update db entries
 			p.updateDatabaseRecord();
 		}
-		
 		super.execute(out);
 	}
 
