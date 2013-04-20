@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class RCheckIn extends Response {
 
 	private String location;
-	private ArrayList<Player> playerObjects;
+	private ArrayList<Player> playerObjects = new ArrayList<Player>();
 	private Resources resourceSet;
 
 	public RCheckIn(String userID, int gameID) {
@@ -46,8 +46,10 @@ public class RCheckIn extends Response {
 			rs.close();
 			st.close();
 		}catch(Exception e){
+			e.printStackTrace();
 			super.execute(out);
 		}
+		System.out.println("Crashing before 3");
 		//Generate resources based on location & update Player Objects
 		for(Player p : playerObjects){
 			p.getFromDatabase();
