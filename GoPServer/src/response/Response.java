@@ -7,6 +7,7 @@ import gameResources.Player;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 import org.json.JSONObject;
 
@@ -59,10 +60,34 @@ public abstract class Response {
 		dbConn = DriverManager.getConnection(dbURL, props);
 	}
 	
-	public Game getGame(){
+	public Game selectGame(){
 		Game result = new Game(gameID, dbConn);
 		result.getFromDatabase();
 		return result;
+	}
+	
+	public Player selectPlayer(){
+		Player result = new Player(userID, gameID, dbConn);
+		result.getFromDatabase();
+		return result;
+	}
+	
+	public ArrayList<Player> selectPlayers(){
+		ArrayList<Player> playerObjects = new ArrayList<Player>();
+		try{
+			Statement st = dbConn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT game_id FROM player WHERE player.id = '"+userID+"';");
+			while (rs.next()) {
+				System.out.println("Getting Columns ");
+				//Create Player objects for each class
+				playerObjects.add(new Player(userID, Integer.parseInt(rs.getString(1)), dbConn)); //Need to split resultset into player/gameid
+			}
+			rs.close();
+			st.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return playerObjects;
 	}
 	
 	public void pullFromDatabase(String query){

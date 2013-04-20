@@ -35,20 +35,7 @@ public class RCheckIn extends Response {
 	public void execute(DataOutputStream out) throws IOException{
 		//Select all Players for a userid.
 		//"SELECT player_id FROM players WHERE players.user_id = "+userID+";"
-		try{
-			Statement st = dbConn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT game_id FROM player WHERE player.id = '"+userID+"';");
-			while (rs.next()) {
-				System.out.println("Getting Columns ");
-				//Create Player objects for each class
-				playerObjects.add(new Player(userID, Integer.parseInt(rs.getString(1)), dbConn)); //Need to split resultset into player/gameid
-			}
-			rs.close();
-			st.close();
-		}catch(Exception e){
-			e.printStackTrace();
-			super.execute(out);
-		}
+		playerObjects = super.selectPlayers();
 		setResources();
 		//Generate resources based on location & update Player Objects
 		for(Player p : playerObjects){
