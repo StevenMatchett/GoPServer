@@ -67,11 +67,11 @@ public class Game implements GameObject {
 	
 	public void updateDatabaseRecord(){
 		try{
-			Statement playerStatement = dbConn.createStatement();
+			Statement gameStatement = dbConn.createStatement();
 			//playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
 			//		+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ("+userID+","+gameID+",0,0,0,0,0,0,0,0,0,0,0,0);");
 			System.out.println(gameID);
-			playerStatement.close();
+			gameStatement.close();
 		} catch (Exception e){
 			e.printStackTrace();
 		} 

@@ -1,5 +1,6 @@
 package response;
 
+import java.io.DataOutputStream;
 import java.sql.Statement;
 
 public class RJoinGame extends Response {
@@ -16,7 +17,8 @@ public class RJoinGame extends Response {
 		super(gameID);
 	}
 	
-	public void pushNewPlayer() {
+	@Override
+	public void execute(DataOutputStream out) {
 		try{
 			Statement playerStatement = dbConn.createStatement();
 			playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
