@@ -41,7 +41,7 @@ public class RCreateGame extends Response {
 		playerList.add(new Player(userID, gameID, dbConn));
 		playerList.get(0).createPlayer();
 		Game newGame = new Game(gameID, gameName, maxPlayerCount, mapName, conquestPoints, playerList, dbConn);
-
+		
 		
 		System.out.println("Creating a game for user " + super.userID + " with game number " + super.gameID);
 		super.execute(out);

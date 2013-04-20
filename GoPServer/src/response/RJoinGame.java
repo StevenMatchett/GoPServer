@@ -1,6 +1,7 @@
 package response;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.sql.Statement;
 
 public class RJoinGame extends Response {
@@ -18,15 +19,16 @@ public class RJoinGame extends Response {
 	}
 	
 	@Override
-	public void execute(DataOutputStream out) {
+	public void execute(DataOutputStream out) throws IOException {
 		try{
 			Statement playerStatement = dbConn.createStatement();
 			playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
 					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ("+userID+","+gameID+",0,0,0,0,0,0,0,0,0,0,0,0);");
 			System.out.println(userID);
 			playerStatement.close();
-		} catch (Exception e){
+		}catch (Exception e){
 			e.printStackTrace();
-		} 
+		}
+		super.execute(out);
 	}
 }
