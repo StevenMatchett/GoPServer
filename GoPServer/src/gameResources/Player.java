@@ -96,7 +96,7 @@ public class Player implements GameObject {
 		try{
 			Statement playerStatement = dbConn.createStatement();
 			playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
-					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ('"+playerID+"',"+gameID+","+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl
+					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ('"+playerID+"',"+gameID+","+conquestPoints+","+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl
 					+","+agencyLvl+","+numArtifacts+","+numBlueprints+","+numFuel+","+numMaterial+","+numLuxuries+","+numProduce+");");
 			playerStatement.close();
 		}catch (Exception e){
