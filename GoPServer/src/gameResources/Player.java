@@ -74,8 +74,18 @@ public class Player implements GameObject {
 					"WHERE player.id = "+playerID+" AND player.game_id = "+gameID+";");
 			
 			while (rs.next()) {
-				System.out.println("Getting Column 1 ");
-				rs.getString(1);
+				conquestPoints = Integer.parseInt(rs.getString(1));
+				factoryLvl = Integer.parseInt(rs.getString(2));
+				studioLvl = Integer.parseInt(rs.getString(3));
+				templeLvl = Integer.parseInt(rs.getString(4));
+				labLvl = Integer.parseInt(rs.getString(5));
+				agencyLvl = Integer.parseInt(rs.getString(6));
+				numArtifacts = Integer.parseInt(rs.getString(7));
+				numBlueprints = Integer.parseInt(rs.getString(8));
+				numFuel = Integer.parseInt(rs.getString(9));
+				numMaterial = Integer.parseInt(rs.getString(10));
+				numLuxuries = Integer.parseInt(rs.getString(11));
+				numProduce = Integer.parseInt(rs.getString(12));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,8 +93,15 @@ public class Player implements GameObject {
 	}
 	
 	public void createPlayer() {
-		// TODO Auto-generated method stub
-		
+		try{
+			Statement playerStatement = dbConn.createStatement();
+			playerStatement.executeUpdate("INSERT INTO player(id,game_id,conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level,"
+					+ "artifacts, blueprints,fuel,material,luxuries,produce) VALUES ('"+playerID+"',"+gameID+","+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl
+					+","+agencyLvl+","+numArtifacts+","+numBlueprints+","+numFuel+","+numMaterial+","+numLuxuries+","+numProduce+");");
+			playerStatement.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public void updateDatabaseRecord(){

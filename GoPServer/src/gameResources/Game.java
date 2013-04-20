@@ -10,6 +10,7 @@ public class Game implements GameObject {
 	
 	private int gameID;
 	private String gameName;
+	private int turn;
 	private int maxPlayers;
 	private String mapName;
 	private int maxConquestPoints;
@@ -51,11 +52,12 @@ public class Game implements GameObject {
 		try {
 			Statement st = dbConn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM game WHERE game_id="+gameID+";"); 
-			int i = 1;
 			while (rs.next()) {
-				System.out.println("Column: "+i);
-				System.out.println(rs.getString(i));
-				i++;
+				turn = Integer.parseInt(rs.getString(2));
+				gameName = (rs.getString(3));
+				mapName = (rs.getString(4));
+				maxPlayers = Integer.parseInt(rs.getString(5));
+				maxConquestPoints = Integer.parseInt(rs.getString(6));
 			}
 			rs.close();
 			st.close();
