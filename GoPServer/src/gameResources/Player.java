@@ -107,12 +107,10 @@ public class Player implements GameObject {
 	public void updateDatabaseRecord(){
 		try{
 			Statement playerStatement = dbConn.createStatement();
-			playerStatement.executeUpdate("UPDATE player(id,game_id,conquest_points," +
-					"factory_level,studio_level,temple_level,lab_level,agency_level,"
-					+ "artifacts,blueprints,fuel,material,luxuries,produce) " 
-					+ "VALUES ('"+playerID+"',"+gameID+","+conquestPoints+","
-					+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl+","+agencyLvl+","
-					+numArtifacts+","+numBlueprints+","+numFuel+","+numMaterial+","+numLuxuries+","+numProduce+");");
+			playerStatement.executeUpdate("UPDATE player SET id = '" + playerID + "',game_id = " + gameID + ",conquest_points = " + conquestPoints + "," +
+					"factory_level = " + factoryLvl + ",studio_level = " + studioLvl + ",temple_level = " + templeLvl + ",lab_level = "+ labLvl +",agency_level = "+ agencyLvl +","
+					+ "artifacts = "+ numArtifacts +",blueprints = "+ numBlueprints +",fuel = "+ numFuel +",material = "+ numMaterial +","
+					+ "luxuries = "+ numLuxuries +",produce = "+ numProduce + ";"); 
 			System.out.println("Updated player: "+playerID);
 			playerStatement.close();
 		} catch (Exception e){
