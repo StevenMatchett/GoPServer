@@ -71,7 +71,7 @@ public class Player implements GameObject {
 			ResultSet rs = st.executeQuery("SELECT " +
 					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level," +
 					"artifacts,blueprints,fuel,material,luxuries,produce FROM player " +
-					"WHERE player.id = "+playerID+" AND player.game_id = "+gameID+";");
+					"WHERE player.id = '"+playerID+"' AND player.game_id = "+gameID+";");
 			
 			while (rs.next()) {
 				conquestPoints = Integer.parseInt(rs.getString(1));

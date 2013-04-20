@@ -37,7 +37,7 @@ public class RCheckIn extends Response {
 		//"SELECT player_id FROM players WHERE players.user_id = "+userID+";"
 		try{
 			Statement st = dbConn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT game_id FROM player WHERE player.id = "+userID+";");
+			ResultSet rs = st.executeQuery("SELECT game_id FROM player WHERE player.id = '"+userID+"';");
 			while (rs.next()) {
 				System.out.println("Getting Columns ");
 				//Create Player objects for each class
@@ -78,7 +78,7 @@ public class RCheckIn extends Response {
 			resourceSet = new Resources(0.02f, 0.02f, 0.02f, 0.02f, 0.02f, 0.9f);
 		else if(location.equalsIgnoreCase("Professional & Other Places"))
 			resourceSet = new Resources(0.132f, 0.33f, 0.132f, 0.132f, 0.132f, 0.132f);
-		else if(location.equalsIgnoreCase("Nightlife Spots"))
+		else if(location.equalsIgnoreCase("Nightlife Spot"))
 			resourceSet = new Resources(0.33f, 0.07667f, 0.07667f, 0.07667f, 0.33f, 0.1f);
 		else if(location.equalsIgnoreCase("Residences"))
 			resourceSet = new Resources(0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f, 0.16667f);
