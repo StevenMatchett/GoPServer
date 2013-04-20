@@ -1,6 +1,8 @@
 package gameResources;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Player implements GameObject {
@@ -21,20 +23,16 @@ public class Player implements GameObject {
 	private int numLuxuries;
 	private int numProduce;
 	private Connection dbConn;
-	
+
 	public Player(){}
-	
-	public Player(String pID, Connection db){
-		playerID = pID;
-		dbConn = db;
-	}
-	
+
 	public Player(String pID, int gID, Connection db){
 		playerID = pID;
 		gameID = gID;
 		dbConn = db;
+		getFromDatabase();
 	}
-	
+
 	public Player(String pID, String pName, int gID, int cp, int fl, int sl, int tl, int ll, int al, int a, int b, int f, int m, int l, int p, Connection db){
 		playerID = pID;
 		playerName = pName;
@@ -53,24 +51,39 @@ public class Player implements GameObject {
 		numProduce = p;
 		dbConn = db;
 	}
-	
+
 	public String toString(){
 		//{"player_id":"23324234","player_name":"Steven","conquest_points":2,"factory_level":3,"studio_level":4,"temple_level":5,"lab_level":8,"agency_level":4,
-        //"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234}
+		//"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234}
 		String result = new String();
 		result = "{\"player_id\":"+playerID+"\",\"player_name\":\""+playerName+
 				"\",\"conquest_points\":"+conquestPoints+",\"factory_level\":"+factoryLvl+",\"studio_level\":"+
 				studioLvl+",\"temple_level\":"+templeLvl+",\"lab_level\":"+labLvl+",\"agency_level\":"+agencyLvl+
 				",\"artifacts\":"+numArtifacts+",\"blueprints\":"+numBlueprints+",\"fuel\":"+numFuel+
 				",\"material\":"+numMaterial+",\"luxuries\":"+numLuxuries+",\"produce\":"+numProduce+"}";
-		
+
 		return result;
 	}
-	
+
 	public void getFromDatabase(){
-		
+		try {
+			Statement st = dbConn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT " +
+					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level" +
+					"artifacts,blueprints,fuel,material,luxuries,produce FROM player " +
+					"WHERE player.id = "+playerID+" AND player.game_id = "+gameID+";");
+			int i = 1;
+			
+			while (rs.next()) {
+				System.out.println("Getting Column: "+i);
+				rs.getString(i);
+				i++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void updateDatabaseRecord(){
 		try{
 			Statement playerStatement = dbConn.createStatement();
@@ -206,7 +219,7 @@ public class Player implements GameObject {
 	public void setNumProduce(int numProduce) {
 		this.numProduce = numProduce;
 	}
-	
+
 	public Connection getDbConn() {
 		return dbConn;
 	}
@@ -214,5 +227,5 @@ public class Player implements GameObject {
 	public void setDbConn(Connection dbConn) {
 		this.dbConn = dbConn;
 	}
-	
+
 }
