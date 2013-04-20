@@ -5,6 +5,7 @@ import gameResources.Game;
 import gameResources.Player;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import org.json.JSONObject;
@@ -94,10 +95,16 @@ public abstract class Response {
 		}
 	}
 	
-	public void execute(DataOutputStream out) throws Exception{
-		Class.forName("org.json.JSONObject");
-		JSONObject baseResponse = new JSONObject("{}"); 
-		out.writeBytes(baseResponse.toString());
+	public void execute(DataOutputStream out) throws IOException{
+		try {
+			Class.forName("org.json.JSONObject");
+			JSONObject baseResponse;
+			baseResponse = new JSONObject("{}");
+			out.writeBytes(baseResponse.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.writeBytes(("{}"));
+		} 
 	}
 	
 	public String getUserID() {

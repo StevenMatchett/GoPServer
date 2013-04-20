@@ -4,6 +4,7 @@ import gameResources.Game;
 import gameResources.Player;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class RCreateGame extends Response {
 		maxPlayerCount = playerCount;
 	}
 
-	public void execute(DataOutputStream out) throws Exception {
+	public void execute(DataOutputStream out) throws IOException {
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		playerList.add(new Player(userID, gameID, dbConn));
 		playerList.get(0).createPlayer();
