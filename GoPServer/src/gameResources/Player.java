@@ -69,7 +69,7 @@ public class Player implements GameObject {
 		try {
 			Statement st = dbConn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT " +
-					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level" +
+					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level," +
 					"artifacts,blueprints,fuel,material,luxuries,produce FROM player " +
 					"WHERE player.id = "+playerID+" AND player.game_id = "+gameID+";");
 			

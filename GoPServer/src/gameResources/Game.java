@@ -70,7 +70,7 @@ public class Game implements GameObject {
 	public void createGame(){
 		try{
 			Statement gameStatement = dbConn.createStatement();
-			gameStatement.executeUpdate("INSERT INTO game(game_id,turn_number,name,map,max_players,conquest_points) VALUES ("+gameID+",0,"+gameName+","+mapName+","+maxPlayers+","+maxConquestPoints+");");
+			gameStatement.executeUpdate("INSERT INTO game(game_id,turn_number,name,map,max_players,conquest_points) VALUES ("+gameID+",0,'"+gameName+"','"+mapName+"',"+maxPlayers+","+maxConquestPoints+");");
 			gameStatement.close();
 		} catch (Exception e){
 			e.printStackTrace();
