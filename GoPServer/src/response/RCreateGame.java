@@ -5,7 +5,6 @@ import gameResources.Player;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class RCreateGame extends Response {

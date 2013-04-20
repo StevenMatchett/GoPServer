@@ -4,7 +4,6 @@ import gameResources.Player;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.sql.Statement;
 
 public class RJoinGame extends Response {
 

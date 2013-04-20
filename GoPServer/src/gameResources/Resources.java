@@ -63,6 +63,7 @@ public class Resources {
 		int fuelRange = blueprintRange + Math.round(p_Fuel*resourceMultiplier);
 		int materialRange = fuelRange + Math.round(p_Materials*resourceMultiplier);
 		int luxuriesRange = materialRange + Math.round(p_Luxuries*resourceMultiplier);
+		@SuppressWarnings("unused")
 		int foodRange = luxuriesRange + Math.round(p_Food*resourceMultiplier);
 		
 		for(int i = 0; i<resourceModifier; i++){

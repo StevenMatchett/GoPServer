@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import org.json.JSONObject;
-import org.json.JSONException;
 
 public abstract class Response {
 	
