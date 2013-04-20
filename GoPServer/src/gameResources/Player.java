@@ -93,7 +93,7 @@ public class Player implements GameObject {
 			playerStatement.executeUpdate("UPDATE player(id,game_id,conquest_points," +
 					"factory_level,studio_level,temple_level,lab_level,agency_level,"
 					+ "artifacts,blueprints,fuel,material,luxuries,produce) " 
-					+ "VALUES ("+playerID+","+gameID+","+conquestPoints+","
+					+ "VALUES ('"+playerID+"',"+gameID+","+conquestPoints+","
 					+factoryLvl+","+studioLvl+","+templeLvl+","+labLvl+","+agencyLvl+","
 					+numArtifacts+","+numBlueprints+","+numFuel+","+numMaterial+","+numLuxuries+","+numProduce+");");
 			System.out.println("Updated player: "+playerID);
