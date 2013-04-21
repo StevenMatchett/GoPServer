@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public abstract class Response {
 	
 	protected String userID;
-	protected int gameID = (int) (Math.random() * Double.MAX_VALUE);
+	protected int gameID = (int) (Math.random()*Integer.MAX_VALUE);
 	protected Game game;
 	protected Player player;
 	

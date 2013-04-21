@@ -48,14 +48,14 @@ public class Game implements GameObject {
 		JSONObject gameObject = new JSONObject();
 		try {
 			gameObject.put("game_id", gameID);
-			gameObject.put("name", gameName);
+			gameObject.put("name", gameName.trim());
 			gameObject.put("maxplayers", maxPlayers);
-			gameObject.put("map", mapName);
+			gameObject.put("map", mapName.trim());
 			gameObject.put("conquest_points", maxConquestPoints);
 
 			accumulatePlayers();
 			for (Player p : players) {
-				gameObject.accumulate("players", p.toJSON());
+				gameObject.append("players", p.toJSON());
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

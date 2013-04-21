@@ -60,8 +60,8 @@ public class Player implements GameObject {
 		//"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234}
 		JSONObject playerObject = new JSONObject();
 		
-		playerObject.put("player_id",playerID);
-		playerObject.put("player_name",playerName);
+		playerObject.put("player_id",playerID.trim());
+		playerObject.put("player_name",playerName.trim());
 		playerObject.put("conquest_points",conquestPoints);
 		playerObject.put("factory_level",factoryLvl);
 		playerObject.put("studio_level",studioLvl);
@@ -83,8 +83,8 @@ public class Player implements GameObject {
 			Statement st = dbConn.createStatement();
 			ResultSet rs = st.executeQuery("SELECT " +
 					"conquest_points,factory_level,studio_level,temple_level,lab_level,agency_level," +
-					"artifacts,blueprints,fuel,material,luxuries,produce FROM player " +
-					"WHERE player.id = '"+playerID+"' AND player.game_id = "+gameID+";");
+					"artifacts,blueprints,fuel,material,luxuries,produce,alias FROM player a " +
+					"JOIN account b ON (b.id = a.id) WHERE a.id = '"+playerID+"' AND a.game_id = "+gameID+";");
 			
 			while (rs.next()) {
 				conquestPoints = Integer.parseInt(rs.getString(1));
@@ -99,6 +99,7 @@ public class Player implements GameObject {
 				numMaterial = Integer.parseInt(rs.getString(10));
 				numLuxuries = Integer.parseInt(rs.getString(11));
 				numProduce = Integer.parseInt(rs.getString(12));
+				playerName = rs.getString(13).trim();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
