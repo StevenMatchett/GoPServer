@@ -12,7 +12,7 @@ public class UpgradeBuildingRequest implements IRequest {
 	private static final Pattern pattern = Pattern.compile("action=get_players&user_id=(.+)&game_id=(.+)&building_id=(.+)",Pattern.CASE_INSENSITIVE);
 	private String userID;
 	private int gameID;
-	private int buildingID;
+	private String buildingID;
 
 	@Override
 	public boolean matches(String input) {
@@ -20,7 +20,7 @@ public class UpgradeBuildingRequest implements IRequest {
 		if(matcher.matches()) {
 			userID = matcher.group(1).trim();
 			gameID = Integer.parseInt(matcher.group(2).trim());
-			buildingID = Integer.parseInt(matcher.group(3).trim());
+			buildingID = matcher.group(3).trim();
 			return true;
 		}
 		return false;
