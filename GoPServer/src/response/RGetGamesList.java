@@ -35,9 +35,10 @@ public class RGetGamesList extends Response {
 				game = new Game(rs.getInt(1), dbConn);
 				game.getFromDatabase();
 				gameList.add(game);
-				returnJSON.accumulate("games", game.toString());
+				returnJSON.accumulate("games", game.toJSON());
 			}
 			//Send JSON to phone.
+			System.out.println(returnJSON);
 			out.writeBytes(returnJSON.toString());
 			
 		} catch (Exception e) {

@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Game implements GameObject {
 
 	private int gameID;
@@ -37,23 +40,27 @@ public class Game implements GameObject {
 		dbConn = db;
 	}
 
-	public String toString() {
+	public JSONObject toJSON() {
 		// {"games":[
 		// {"game_id":123,"name":"name","maxplayers":2,"map":"death rock","conquest_points":7,"players":[]}
 		// <--Just this line goes in this method
 		// ]}
-		StringBuffer result = new StringBuffer();
-		result.append("{\"game_id\":" + gameID + ",\"name\":\"" + gameName
-				+ "\",\"maxplayers\":" + maxPlayers + ",\"map\":\"" + mapName
-				+ "\",\"conquest_points\":" + maxConquestPoints
-				+ ",\"players\":[");
-		accumulatePlayers();
-		for (Player p : players) {
-			result.append(p.toString());
-		}
-		result.append("]}");
+		JSONObject gameObject = new JSONObject();
+		try {
+			gameObject.put("game_id", gameID);
+			gameObject.put("name", gameName);
+			gameObject.put("maxplayers", maxPlayers);
+			gameObject.put("map", mapName);
+			gameObject.put("conquest_points", maxConquestPoints);
 
-		return result.toString();
+			accumulatePlayers();
+			for (Player p : players) {
+				gameObject.accumulate("players", p.toJSON());
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return gameObject;
 	}
 
 	public void getFromDatabase() {

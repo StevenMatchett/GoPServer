@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Player implements GameObject {
 
 	private String playerID;
@@ -52,17 +55,27 @@ public class Player implements GameObject {
 		dbConn = db;
 	}
 
-	public String toString(){
+	public JSONObject toJSON() throws JSONException{
 		//{"player_id":"23324234","player_name":"Steven","conquest_points":2,"factory_level":3,"studio_level":4,"temple_level":5,"lab_level":8,"agency_level":4,
 		//"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234}
-		String result = new String();
-		result = "{\"player_id\":"+playerID+"\",\"player_name\":\""+playerName+
-				"\",\"conquest_points\":"+conquestPoints+",\"factory_level\":"+factoryLvl+",\"studio_level\":"+
-				studioLvl+",\"temple_level\":"+templeLvl+",\"lab_level\":"+labLvl+",\"agency_level\":"+agencyLvl+
-				",\"artifacts\":"+numArtifacts+",\"blueprints\":"+numBlueprints+",\"fuel\":"+numFuel+
-				",\"material\":"+numMaterial+",\"luxuries\":"+numLuxuries+",\"produce\":"+numProduce+"}";
-
-		return result;
+		JSONObject playerObject = new JSONObject();
+		
+		playerObject.put("player_id",playerID);
+		playerObject.put("player_name",playerName);
+		playerObject.put("conquest_points",conquestPoints);
+		playerObject.put("factory_level",factoryLvl);
+		playerObject.put("studio_level",studioLvl);
+		playerObject.put("temple_level",templeLvl);
+		playerObject.put("lab_level",labLvl);
+		playerObject.put("agency_level",agencyLvl);
+		playerObject.put("artifacts",numArtifacts);
+		playerObject.put("blueprints",numBlueprints);
+		playerObject.put("fuel",numFuel);
+		playerObject.put("material",numMaterial);
+		playerObject.put("luxuries",numLuxuries);
+		playerObject.put("produce",numProduce);
+		
+		return playerObject;
 	}
 
 	public void getFromDatabase(){
