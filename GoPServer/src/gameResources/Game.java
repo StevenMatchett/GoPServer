@@ -88,8 +88,7 @@ public class Game implements GameObject {
 			players = new ArrayList<Player>();
 			Statement st = dbConn.createStatement();
 			ResultSet rs = st
-					.executeQuery("SELECT * FROM player WHERE game_id="
-							+ gameID + ";");
+					.executeQuery("SELECT * FROM player WHERE game_id=" + gameID + ";");
 			Player player;
 			while (rs.next()) {
 				player = new Player(rs.getString(1), gameID, dbConn);

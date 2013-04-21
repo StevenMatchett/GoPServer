@@ -101,6 +101,7 @@ public class Player implements GameObject {
 				numProduce = Integer.parseInt(rs.getString(12));
 				playerName = rs.getString(13).trim();
 			}
+			//Add a block to catch player name, since it's apparently going in this class.
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
