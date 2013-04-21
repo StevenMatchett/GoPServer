@@ -21,6 +21,7 @@ public class Game implements GameObject {
 	private Connection dbConn;
 
 	public Game() {
+		gameID = (int) (Math.random()*Integer.MAX_VALUE);
 	}
 
 	public Game(int id, Connection db) {
@@ -42,8 +43,7 @@ public class Game implements GameObject {
 
 	public JSONObject toJSON() {
 		// {"games":[
-		// {"game_id":123,"name":"name","maxplayers":2,"map":"death rock","conquest_points":7,"players":[]}
-		// <--Just this line goes in this method
+		// {"game_id":123,"name":"name","maxplayers":2,"map":"death rock","conquest_points":7,"players":[]}<--Just this line goes in this method
 		// ]}
 		JSONObject gameObject = new JSONObject();
 		try {
@@ -90,11 +90,11 @@ public class Game implements GameObject {
 			ResultSet rs = st
 					.executeQuery("SELECT * FROM player WHERE game_id="
 							+ gameID + ";");
-			Player playerPimp;
+			Player player;
 			while (rs.next()) {
-				playerPimp = new Player(rs.getString(1), gameID, dbConn);
-				playerPimp.getFromDatabase();
-				players.add(playerPimp);
+				player = new Player(rs.getString(1), gameID, dbConn);
+				player.getFromDatabase();
+				players.add(player);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
