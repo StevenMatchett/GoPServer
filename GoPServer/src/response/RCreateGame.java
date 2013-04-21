@@ -36,6 +36,8 @@ public class RCreateGame extends Response {
 	}
 
 	public void execute(DataOutputStream out) throws IOException {
+		//Create a new game ID
+		gameID = (int) (Math.random()*Integer.MAX_VALUE);
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		playerList.add(new Player(userID, gameID, dbConn));
 		playerList.get(0).createPlayer();

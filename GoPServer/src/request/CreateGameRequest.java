@@ -26,7 +26,6 @@ public class CreateGameRequest implements IRequest {
 			map = matcher.group(3).trim();
 			pointsCount = Integer.parseInt(matcher.group(4));
 			playerCount = Integer.parseInt(matcher.group(5));
-			//gameID = Integer.parseInt(matcher.group(2).trim());
 			return true;
 		}
 		return false;
