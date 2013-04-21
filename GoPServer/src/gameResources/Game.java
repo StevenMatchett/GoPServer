@@ -21,6 +21,7 @@ public class Game implements GameObject {
 	private Connection dbConn;
 
 	public Game() {
+		gameID = (int) (Math.random()*Integer.MAX_VALUE);
 	}
 
 	public Game(int id, Connection db) {
