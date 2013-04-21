@@ -30,10 +30,11 @@ public class RGetGamesList extends Response {
 		try {
 			JSONObject returnJSON = new JSONObject();
 			Statement st = dbConn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT game_id FROM game MINUS (SELECT game_id FROM player WHERE player.id = '"+userID+"');");
+			ResultSet rs = st.executeQuery("SELECT game_id FROM game EXCEPT SELECT game_id FROM player WHERE player.id = '"+userID+"';");
 			while(rs.next()){
-				gameList.add(new Game(rs.getInt(1), dbConn));
+				game = new Game(rs.getInt(1), dbConn);
 				game.getFromDatabase();
+				gameList.add(game);
 				returnJSON.accumulate("games", game.toString());
 			}
 			//Send JSON to phone.

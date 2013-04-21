@@ -30,16 +30,6 @@ public class GameRequest implements Runnable
 		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		String requestLine = br.readLine(); 
 		
-		//Echo the input for debugging.
-		System.out.println("\n" + requestLine);
-
-//		String contentBody = null;
-//		while ((contentBody = br.readLine()).length() != 0)
-//		{
-//			//Debug for now.
-//			System.out.println(contentBody);
-//		}
-		
 		CommandParser parseString = new CommandParser();
 		//This will create the proper request & execute it. The execution will make a response and run *that*.
 		if (parseString != null){
