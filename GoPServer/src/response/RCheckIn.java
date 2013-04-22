@@ -78,8 +78,4 @@ public class RCheckIn extends Response {
 		else
 			resourceSet = new Resources(0, 0, 0, 0, 0, 0);
 	}
-
-	public Resources getResourcesForCheck(){
-		return null;
-	}
 }
