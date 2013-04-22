@@ -35,7 +35,7 @@ public class RJoinGame extends Response {
 	public boolean checkForMaxPlayers(){
 		try{
 			Statement checkForMaxPlayers = dbConn.createStatement();
-			ResultSet rs = checkForMaxPlayers.executeQuery("SELECT maxplayers,count(*) FROM game a JOIN player b ON (a.game_id = b.game_id) WHERE (game_id = " + gameID + ");");
+			ResultSet rs = checkForMaxPlayers.executeQuery("SELECT max_players,count(*) FROM game a JOIN player b ON (a.game_id = b.game_id) WHERE (game_id = " + gameID + ");");
 			while(rs.next()){
 				if(rs.getInt(1) > rs.getInt(2)){
 					return true;
