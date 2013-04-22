@@ -25,7 +25,8 @@ public class CommandFactory {
 					new JoinGameRequest(),
 					new ResignRequest(),
 					new UpgradeBuildingRequest(),
-					new LoginRequest()};
+					new LoginRequest(),
+					new GetCurrentGamesRequest()};
 		}
 		return commandArray;
 
