@@ -38,7 +38,7 @@ public class RCheckIn extends Response {
 		//Generate resources based on location & update Player Objects
 		for(Player p : playerObjects){
 			p.getFromDatabase();
-			resourceSet.generateResources(p.getFactoryLvl());
+			resourceSet.generateResources(p.getLabLvl());
 			p.setNumArtifacts(p.getNumArtifacts() + resourceSet.getArtifact());
 			p.setNumBlueprints(p.getNumBlueprints() + resourceSet.getBlueprints());
 			p.setNumFuel(p.getNumFuel() + resourceSet.getFood());
