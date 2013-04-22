@@ -7,6 +7,13 @@ import gameResources.Player;
 
 public class RBuyVP extends Response {
 	
+	private int artifacts;
+	private int blueprints;
+	private int fuel;
+	private int materials;
+	private int luxuries;
+	private int food;
+	
 	public RBuyVP(String userID, int gameID) {
 		super(userID, gameID);
 	}
@@ -19,12 +26,28 @@ public class RBuyVP extends Response {
 		super(gameID);
 	}
 
+	public RBuyVP(String userID, int gameID, int art, int blue, int fl, int mat, int lux, int foo) {
+		super(userID, gameID);
+		artifacts = art;
+		blueprints = blue;
+		fuel = fl;
+		materials = mat;
+		luxuries = lux;
+		food = foo;
+	}
+
 	public void execute(DataOutputStream out) throws IOException{
 		Player player = super.selectPlayer();
-		player.setConquestPoints(player.getConquestPoints()+1);
-		//I don't know what we're using to purchase the conquest points, so fix this Adam.
-		player.setNumLuxuries(player.getNumLuxuries()-3);
-		player.updateDatabaseRecord();
+		if((artifacts+blueprints+fuel+materials+luxuries+food) >= (15 - player.getStudioLvl())){
+			player.setNumArtifacts(player.getNumArtifacts() - artifacts);
+			player.setNumBlueprints(player.getNumBlueprints() - blueprints);
+			player.setNumFuel(player.getNumFuel() - fuel);
+			player.setNumMaterial(player.getNumMaterial() - materials);
+			player.setNumLuxuries(player.getNumLuxuries() - luxuries);
+			player.setNumProduce(player.getNumProduce() - food);
+			player.setConquestPoints(player.getConquestPoints() + 1);
+			player.updateDatabaseRecord();
+		}
 		super.execute(out);
 	}
 }
