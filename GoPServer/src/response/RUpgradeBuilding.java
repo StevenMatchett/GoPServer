@@ -6,6 +6,9 @@ import gameResources.Player;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RUpgradeBuilding extends Response {
 
 	private String building;
@@ -30,7 +33,16 @@ public class RUpgradeBuilding extends Response {
 	public void execute(DataOutputStream out) throws IOException {
 		Player player = super.selectPlayer();
 		Buildings buildingsHandler = new Buildings(player, building);
-		buildingsHandler.updatePlayerBuildings();
-		super.execute(out);
+		JSONObject buildingResults = new JSONObject();
+		
+		try{
+			if(buildingsHandler.updatePlayerBuildings()){
+				buildingResults.accumulate("result", "Success");
+			}else
+				buildingResults.accumulate("result", "Failed");
+		}catch(JSONException e){
+			e.printStackTrace();
+		}
+		out.writeBytes(buildingResults.toString());
 	}
 }
