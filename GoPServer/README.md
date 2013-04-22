@@ -1,8 +1,8 @@
 Request Format
 -----------------------------------
-GET /action=login&user_id=null&user_name=null HTTP/1.1  
+action=login&user_id=null&user_name=null HTTP/1.1  
 
-GET /action=login&user_id=39091967&user_name=Steven_Matchett HTTP/1.1  
+action=login&user_id=39091967&user_name=Steven_Matchett HTTP/1.1  
 
 Using regular expressions, we can parse the request, take the data they give us, do stuff with it, then return some JSON.
 Just like one of them, API's! Well be working with Postgresql for the database stuff.
@@ -12,14 +12,9 @@ JSON Object Formats
 --------------------------------------
 We will be formatting the JSON objects with the following scheme:
 
-	 {"id_info": {"userID": "user_id_number"}}
-	 {"id_info": {"gameID": "game_id_number"}}
-	 {"game_info": {"buildingInfo": List<BuildingLvls>}}
-	 {"game_info": {"resourceInfo": List<ResourcesCount>}}
-	 {"game_info": {"victoryPoints": valueOfVP}}
+	 {"games":[{"game_id":123,"name":"this is the game name","maxplayers":2,"map":"death rock","conquest_points":7,"players":[{"player_id":"23324234","player_name":"Steven","conquest_points":2,"factory_level":3,"studio_level":4,"temple_level":5,"lab_level":8,"agency_level":4,"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234},{"player_id":"23324234","player_name":"Adam","conquest_points":2,"factory_level":3,"studio_level":4,"temple_level":5,"lab_level":8,"agency_level":4,"artifacts":34,"blueprints":33,"fuel":800,"material":23,"luxuries":23,"produce":234}]}]}
 	 
-In theory, this should allow us to build an object that is more robust for client side to read. 
-We may need to add more formats as we cross more bridges. For example, returning lists of games and players.
+In theory, this should allow us to build an object that is more robust for client side to read.
 
 Resource Allocation
 --------------------------------------
