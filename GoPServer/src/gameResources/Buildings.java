@@ -11,7 +11,7 @@ public class Buildings {
 	 * Factory - Upgrading buildings cost less by 1 per level
 	 * Lab - Increase resources gained per check-in by 1
 	 * Studio - Reduce the cost of a VP by 1 resource
-	 * Temple - Skew % values of future check ins for specific resource.
+	 * Temple - SPECIAL - Grants player 1 resource for each of the following types: Blueprints, Materials, Fuel. This costs the player a Luxury, Artifact, and Food.
 	 */
 	
 	//calculates the players resource ammount with their factory amount, since factories effectively give an extra resource
@@ -27,7 +27,6 @@ public class Buildings {
 	private int factoryCost = (int) Math.ceil((0.5 * (double)player.getFactoryLvl()));
 	private int labCost = (int) Math.ceil((0.5 * (double)player.getLabLvl()));
 	private int studioCost = (int) Math.ceil((0.5 * (double)player.getStudioLvl())); 
-	private int templeCost = (int) Math.ceil((0.5 * (double)player.getTempleLvl()));	
 	
 	public Buildings(Player p, String b){
 		player = p;
@@ -53,13 +52,15 @@ public class Buildings {
 				upgradeStatus = true;
 			}
 		}else if(building.equalsIgnoreCase("Studio")){
-			if(c_Luxuries > (4*studioCost) && c_Materials > (2*studioCost)){
+			if(c_Luxuries >= (4*studioCost) && c_Materials >= (2*studioCost)){
 				player.setStudioLvl(player.getStudioLvl()+1);
 				upgradeStatus = true;
 			}
 		}else {
-			if(c_Luxuries > (1*templeCost) && c_Artifacts > (1*templeCost) && c_Food > (3*templeCost)){
-				player.setTempleLvl(player.getTempleLvl()+1);
+			if(c_Luxuries >= (1) && c_Artifacts >= (1) && c_Food >= (1)){
+				player.setNumMaterial(player.getNumMaterial() + 1);
+				player.setNumBlueprints(player.getNumBlueprints() + 1);
+				player.setNumFuel(player.getNumFuel() + 1);
 				upgradeStatus = true;
 			}
 		}
